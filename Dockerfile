@@ -1,37 +1,51 @@
 #vim:set ft=dockerfile:
-FROM centos:7.1.1503
+FROM centos:latest
 
-MAINTAINER Crakmedia <docker@crakmedia.com>
+MAINTAINER oBlank <dyh1919@gmail.com>
 
-# PHP5 Stack and nginx
-RUN yum -y install epel-release yum-utils && \
-    rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm && \
-    yum-config-manager --enable remi-php56,remi && \
-    yum -y update && \
-    yum -y install php-fpm php-mysql php-mcrypt php-curl php-cli php-gd php-pgsql php-pdo \
-           php-common php-json php-pecl-redis php-pecl-memcache nginx python-pip \
-           vim telnet git php-mbstring php-pecl-xdebug php-soap php-yaml && \
-    yum clean all
+# Add the ngix and PHP dependent repository
+ADD ./files/nginx.repo /etc/yum.repos.d/nginx.repo
+
+# Installing nginx
+RUN yum -y install nginx
+
+# Installing PHP
+RUN yum -y --enablerepo=remi,remi-php56 install nginx \
+        php-fpm php-mysql php-mcrypt php-curl php-cli php-gd php-pgsql php-pdo \
+        php-common php-json php-pecl-redis php-pecl-memcache nginx python-pip \
+        vim telnet git php-mbstring php-pecl-xdebug php-soap php-yaml && \
+        yum clean all
+
+
+# Installing supervisor
+RUN yum install -y python-setuptools
+RUN easy_install pip
+RUN pip install supervisor supervisor-stdout
+
 
 # Supervisor config
-RUN /usr/bin/pip install supervisor supervisor-stdout
+#RUN /usr/bin/pip install supervisor supervisor-stdout
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Expose Ports
-EXPOSE 80
-EXPOSE 443
 
-COPY ./docker/conf.d /etc/nginx/conf.d
-COPY ./docker/nginx.conf /etc/nginx/nginx.conf
-COPY ./docker/php.ini /etc/php.ini
-COPY ./docker/php-fpm.conf /etc/php-fpm.conf
-COPY ./docker/php-fpm.d /etc/php-fpm.d
-COPY ./docker/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
-COPY ./docker/supervisord.conf /etc/supervisord.conf
+COPY ./files/conf.d /etc/nginx/conf.d
+COPY ./files/nginx.conf /etc/nginx/nginx.conf
+COPY ./files/php.ini /etc/php.ini
+COPY ./files/php-fpm.conf /etc/php-fpm.conf
+COPY ./files/php-fpm.d /etc/php-fpm.d
+COPY ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
+COPY ./files/supervisord.conf /etc/supervisord.conf
+
+# Adding the default file
+ADD ./files/index.php /var/www/index.php
 
 # Volumes
 VOLUME /var/log
 VOLUME /var/lib/php/session
+
+# Expose Ports
+EXPOSE 80
+EXPOSE 443
 
 CMD ["/usr/bin/supervisord", "-n"]
