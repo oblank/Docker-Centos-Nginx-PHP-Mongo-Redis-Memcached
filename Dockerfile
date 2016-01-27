@@ -1,5 +1,5 @@
 #vim:set ft=dockerfile:
-FROM centos:latest
+FROM FROM centos:centos6
 
 MAINTAINER oBlank <dyh1919@gmail.com>
 
