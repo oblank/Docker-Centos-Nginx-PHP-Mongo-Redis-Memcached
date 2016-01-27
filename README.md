@@ -1,6 +1,8 @@
-Created by Kaushal Kishore <br>
-Email : kaushal.rahuljaiswal@gmail.com<br>
-Website : http://www.kaushalkishore.com<br>
+Created by oBlank <br>
+Email : dyh1919@gmail.com<br>
+Website : http://www.oBlank.com<br>
+
+Based on [docker-php56-fpm-nginx](https://github.com/CrakLabs/docker-php56-fpm-nginx) and [Docker-Centos-Nginx-PHP](https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP)
 
 <h2>Dockerfile for creating docker image for Centos-Nginx-PHP (Centos, Nginx, PHP-FPM)</h2>
 
