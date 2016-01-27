@@ -65,7 +65,7 @@ RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2
 RUN sed 's/daemonize no/daemonize yes/' redis-2.8.6/redis.conf > /etc/redis.conf
 
 # Chat Server
-
+# Node.js
 
 # Expose Ports
 # nginx
