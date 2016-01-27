@@ -66,8 +66,13 @@ RUN sed 's/daemonize no/daemonize yes/' redis-2.8.6/redis.conf > /etc/redis.conf
 
 # Chat Server
 # Node.js
+# Enable Extra Packages for Enterprise Linux (EPEL) for CentOS
+RUN yum install -y epel-release
+# Install Node.js and npm
+RUN yum install -y nodejs npm
 
-# Send msg checker
+# cron php scripts
+
 
 # Expose Ports
 # nginx
