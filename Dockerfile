@@ -6,6 +6,10 @@ MAINTAINER oBlank <dyh1919@gmail.com>
 # Add the ngix and PHP dependent repository
 ADD ./files/nginx.repo /etc/yum.repos.d/nginx.repo
 
+RUN yum -y update; yum clean all
+# Enable Extra Packages for Enterprise Linux (EPEL) for CentOS
+RUN yum -y install epel-release; yum clean all
+
 # Installing nginx
 RUN yum -y install nginx perl
 
@@ -46,8 +50,9 @@ VOLUME /data/www/htdocs/
 
 
 # mongodb
-#RUN rpm -ivh http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-2.4.14-mongodb_1.x86_64.rpm http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-server-2.4.14-mongodb_1.x86_64.rpm
-RUN yum install -y mongodb-org
+#RUN rpm -ivh https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/RPMS/mongodb-org-3.2.1-1.amzn1.x86_64.rpm
+RUN yum -y install mongodb-server; yum clean all
+RUN mkdir -p /data/db
 RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
 RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
@@ -67,8 +72,6 @@ RUN sed 's/daemonize no/daemonize yes/' redis-2.8.6/redis.conf > /etc/redis.conf
 
 # Chat Server
 # Node.js
-# Enable Extra Packages for Enterprise Linux (EPEL) for CentOS
-RUN yum install -y epel-release
 # Install Node.js and npm
 RUN yum install -y nodejs npm
 
