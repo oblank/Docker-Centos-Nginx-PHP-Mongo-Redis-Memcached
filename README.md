@@ -1,71 +1,69 @@
-# Dockerfile for PHP based services
+Created by Kaushal Kishore <br>
+Email : kaushal.rahuljaiswal@gmail.com<br>
+Website : http://www.kaushalkishore.com<br>
 
+<h2>Dockerfile for creating docker image for Centos-Nginx-PHP (Centos, Nginx, PHP-FPM)</h2>
 
-This is the Dockerfile which enables building the base Docker image
-to be used by php services.
+<h4>Steps for creating image from the Docker-Centos-Nginx-PHP:</h4>
 
+<b>Step 1 :</b> Clone the Docker-Centos-Nginx-PHP.git
+<pre>
+<b>Command: </b>
+git clone https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP.git
+</pre>
 
-## Building
+<b>Step 2 :</b> Change the directory to the clone folder
+<pre>
+<b>Command:</b>
+cd Docker-Centos-Nginx-PHP
+</pre>
 
-  $ docker build .
-  
-## Installation
+<b>Step 3 :</b> Create the Docker Image
+<pre>
+<b>Command: </b>
+sudo docker build -t ##NAME_OF_YOUR_DOCKER_IMAGE## .
+</pre>
 
-1. Install [Docker](https://www.docker.com/)
-2. Download image from public [Crakmedia Docker Hub Registry](https://registry.hub.docker.com/repos/crakmedia/) 
-	`docker pull crakmedia/php56-fpm-nginx`  
+<pre>
+<b>Note : </b>
+  a). This command will be fired where the DockerFile will be placed
+  b). ##NAME_OF_YOUR_DOCKER_IMAGE## : Replace it with your image name
+  c). . : (.) Symbols shows that your Dockerfile is available on the same directory where you are running the command.
+</pre>
 
-## Versions
+<b>Step 4 :</b> Create an Centos, Nginx, PHP-FPM Installed Container from the image
+<pre>
+<b>Command Syntax: </b>
+sudo docker run --name [container name] -p [port to access (New Port):port exposed(original port)] -i -t [image name]
+<b>Command:</b>
+sudo docker run --name ##NAME_OF_YOUR_DOCKER_CONTAINER## -d -p 8082:80 ##NAME_OF_YOUR_DOCKER_IMAGE##
+</pre>
 
-### php version (php -v)
-    
-    PHP 5.6.9 (cli) (built: May 15 2015 09:31:38)
-    Copyright (c) 1997-2015 The PHP Group
-    Zend Engine v2.6.0, Copyright (c) 1998-2015 Zend Technologies
+<b>Step 5 :</b> Now you can access your Nginx container from your web browser.
+<pre>
+<b>Command:</b>
+http://127.0.0.1:8082/
+</pre>
 
-### nginx version (nginx -v)
+<h4>Some other important commands:</h4>
+<ul>
+<li><b>docker images :</b> To list all the images of your docker</li>
+<li><b>docker ps :</b> To list all the runing containers</li>
+<li><b>docker kill ##CONTAINER_NAME## :</b> To kill the runing container</li>
+<li><b>docker rm ##CONTAINER_NAME## :</b> To delete the container from the system.</li>
+<li><b>docker inspect ##CONTAINER_NAME## :</b> To get all the information about the container.</li>
+<li><b>docker logs ##CONTAINER_NAME## :</b> To get the logs of the container.</li>
+<li><b>docker ps -a:</b> To get the listing of all the containers.</li>
+</ul>
 
-    nginx version: nginx/1.6.3
+<h4>Additional Notes:</h4>
+<b>Command for attaching the volume of your hosted machine:</b>
+<pre>
+<b>Command Syntax:</b>
+sudo docker run --name ##NAME_OF_YOUR_DOCKER_CONTAINER## -d -p 8082:80 -v ##HOSTED_VOLUME_LOCATION##:##CONTAINER_VOLUME_LOCATION## ##YOUR_IMAGE_NAME##
+</pre>
 
-### php-fpm verison (php-fpm -v)
-
-    PHP 5.6.9 (fpm-fcgi) (built: May 15 2015 09:32:11)
-    Copyright (c) 1997-2015 The PHP Group
-    Zend Engine v2.6.0, Copyright (c) 1998-2015 Zend Technologies
-
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
-
-## Credits
-
-- [Yoanis Gil](https://github.com/yoanisgil)
-- [Sylvain Witmeyer](https://github.com/sylwit)
-
-## License
-
-The MIT License
-
-Copyright (c) 2015 Crakmedia http://www.crakmedia.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+<pre>
+<b>Command Example:</b>
+sudo docker run --name apache_ins -d -p 8082:80 -v /var/www/kaushal:/var/www kaushal_nginx
+</pre>
