@@ -45,8 +45,9 @@ VOLUME /var/lib/php/session
 VOLUME /data/www/htdocs/
 
 
-# mongodb (2.4.9)
-RUN rpm -ivh http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-2.4.14-mongodb_1.x86_64.rpm http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-server-2.4.14-mongodb_1.x86_64.rpm
+# mongodb
+#RUN rpm -ivh http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-2.4.14-mongodb_1.x86_64.rpm http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-server-2.4.14-mongodb_1.x86_64.rpm
+RUN yum install -y mongodb-org
 RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
 RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
