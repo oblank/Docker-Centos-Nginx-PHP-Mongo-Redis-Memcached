@@ -49,8 +49,10 @@ VOLUME /var/lib/php/session
 VOLUME /data/www/htdocs/
 
 
-# mongodb
-#RUN rpm -ivh https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/RPMS/mongodb-org-3.2.1-1.amzn1.x86_64.rpm
+# Install MongoDB
+#RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.3/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb.repo
+#RUN yum install -y mongodb-org
+
 RUN yum -y install mongodb-server; yum clean all
 RUN mkdir -p /data/db
 RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
