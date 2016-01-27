@@ -28,14 +28,13 @@ RUN pip install supervisor supervisor-stdout
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-
-COPY ./files/conf.d /etc/nginx/conf.d
-COPY ./files/nginx.conf /etc/nginx/nginx.conf
-COPY ./files/php.ini /etc/php.ini
-COPY ./files/php-fpm.conf /etc/php-fpm.conf
-COPY ./files/php-fpm.d /etc/php-fpm.d
-COPY ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
-COPY ./files/supervisord.conf /etc/supervisord.conf
+ADD ./files/conf.d /etc/nginx/conf.d
+ADD ./files/nginx.conf /etc/nginx/nginx.conf
+ADD ./files/php.ini /etc/php.ini
+ADD ./files/php-fpm.conf /etc/php-fpm.conf
+ADD ./files/php-fpm.d /etc/php-fpm.d
+ADD ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
+ADD ./files/supervisord.conf /etc/supervisord.conf
 
 # Adding the default file
 ADD ./files/index.php /data/www/htdocs/index.php
@@ -73,4 +72,6 @@ RUN sed 's/daemonize no/daemonize yes/' redis-2.8.6/redis.conf > /etc/redis.conf
 EXPOSE 80
 EXPOSE 443
 
+
+# TODO config supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
