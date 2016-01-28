@@ -14,11 +14,9 @@ RUN yum -y install epel-release; yum clean all
 RUN yum -y install nginx perl wget
 
 # Installing PHP
-RUN yum -y --enablerepo=remi,remi-php56 install nginx \
-        php-fpm php-mysql php-mcrypt php-curl php-cli php-gd php-pgsql php-pdo \
-        php-common php-json php-pecl-redis php-pecl-memcache php-pecl-memcached nginx python-pip \
-        vim telnet git php-mbstring php-pecl-xdebug php-soap php-yaml && \
-        yum clean all
+RUN rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+RUN yum update -y
+RUN yum install -y php56w php56w-mbstring php56w-gd php56w-dom php56w-pdo php56w-mysqlnd php56w-mcrypt php56w-process php56w-pear php56w-cli php56w-xml php56w-curl
 
 
 # Supervisor config
