@@ -21,12 +21,6 @@ RUN yum -y --enablerepo=remi,remi-php56 install nginx \
         yum clean all
 
 
-# Installing supervisor
-RUN yum install -y python-setuptools
-RUN easy_install pip
-RUN pip install supervisor supervisor-stdout
-
-
 # Supervisor config
 #RUN /usr/bin/pip install supervisor supervisor-stdout
 
@@ -78,6 +72,10 @@ RUN yum install -y nodejs npm
 
 # cron php scripts
 
+# Installing supervisor
+RUN yum install -y python-setuptools
+RUN easy_install pip
+RUN pip install supervisor supervisor-stdout
 
 # Expose Ports
 # Nginx
