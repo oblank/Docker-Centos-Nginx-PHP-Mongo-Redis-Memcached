@@ -45,20 +45,27 @@ VOLUME /var/lib/php/session
 VOLUME /data/www/htdocs/
 
 
-# mongodb (2.4.9)
-RUN rpm -ivh http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-2.4.14-mongodb_1.x86_64.rpm http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/RPMS/mongo-10gen-server-2.4.14-mongodb_1.x86_64.rpm
+# Install MongoDB
+RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.2/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/
+yum.repos.d/mongodb.repo
+RUN yum install -y mongodb-org
+#RUN yum -y install mongodb-server; yum clean all
+RUN mkdir -p /data/db
 RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
-RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
+#RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
 # memcached (1.4.4-3.el6)
 RUN echo "NETWORKING=yes" >/etc/sysconfig/network
 RUN yum -y install memcached
-RUN /etc/init.d/memcached start && /etc/init.d/memcached stop
+#RUN /etc/init.d/memcached start && /etc/init.d/memcached stop
 
 # mysql (6.0.11)
-RUN rpm -ivh http://mirrors.sohu.com/mysql/MySQL-6.0/MySQL-server-6.0.11-0.glibc23.x86_64.rpm
-#RUN yum -y install mysql-server
-RUN /etc/init.d/mysqld start && /etc/init.d/mysqld stop
+#RUN rpm -ivh http://mirrors.sohu.com/mysql/MySQL-6.0/MySQL-server-6.0.11-0.glibc23.x86_64.rpm
+RUN rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+RUN yum install -y mysql-community-server
+RUN /usr/bin/systemctl enable mysqld
+RUN /usr/bin/systemctl start mysqld
+#RUN /etc/init.d/mysqld start && /etc/init.d/mysqld stop
 
 # redis (2.8.6)
 RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2.8.6.tar.gz && cd redis-2.8.6 && make && make install
