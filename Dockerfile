@@ -73,7 +73,6 @@ RUN yum install -y redis
 RUN sed 's/daemonize no/daemonize yes/' /etc/redis.conf > /etc/redis.conf
 
 # Chat Server
-# Node.js
 # Install Node.js and npm
 RUN yum install -y nodejs npm
 
@@ -81,10 +80,12 @@ RUN yum install -y nodejs npm
 
 
 # Expose Ports
-# nginx
+# Nginx
 EXPOSE 80
 EXPOSE 443
 
+# Promolo
+EXPOSE 3014 4050 3050 4051 3051 6050 6051
 
 # TODO config supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
