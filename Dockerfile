@@ -58,7 +58,7 @@ RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
 # memcached (1.4.4-3.el6)
-RUN echo "NETWORKING=yes" >/etc/sysconfig/network
+RUN echo "NETWORKING=yes" >>/etc/sysconfig/network
 RUN yum -y install memcached
 #RUN /etc/init.d/memcached start && /etc/init.d/memcached stop
 
