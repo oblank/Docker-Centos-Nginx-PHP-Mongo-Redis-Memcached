@@ -19,9 +19,6 @@ RUN yum update -y
 RUN yum install -y php56w php56w-mbstring php56w-gd php56w-dom php56w-pdo php56w-mysqlnd php56w-mcrypt php56w-process php56w-pear php56w-cli php56w-xml php56w-curl
 
 
-# Supervisor config
-#RUN /usr/bin/pip install supervisor supervisor-stdout
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ADD ./files/conf.d /etc/nginx/conf.d
