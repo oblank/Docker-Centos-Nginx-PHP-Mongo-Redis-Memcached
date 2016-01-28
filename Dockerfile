@@ -73,9 +73,8 @@ RUN yum install -y nodejs npm
 # cron php scripts
 
 # Installing supervisor
-RUN yum install -y python-setuptools
-RUN easy_install pip
-RUN pip install supervisor supervisor-stdout
+RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+RUN yum --enablerepo=epel install -y supervisor
 
 # Expose Ports
 # Nginx
