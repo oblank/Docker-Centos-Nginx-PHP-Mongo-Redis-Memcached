@@ -56,7 +56,7 @@ RUN echo "NETWORKING=yes" >>/etc/sysconfig/network
 RUN yum -y install memcached
 #RUN /etc/init.d/memcached start && /etc/init.d/memcached stop
 
-# mysql (6.0.11)
+# mysql
 RUN rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 RUN yum -y install mysql-community-server
 
