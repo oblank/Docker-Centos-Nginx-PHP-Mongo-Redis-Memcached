@@ -46,9 +46,7 @@ VOLUME /data/www/htdocs/
 # Install MongoDB
 RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/6/mongodb-org/3.2/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb.repo
 RUN yum install -y mongodb-org
-#RUN yum -y install mongodb-server; yum clean all
 RUN mkdir -p /data/db
-RUN echo 'smallfiles = true' >> /etc/mongod.conf # make journal small
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
 # memcached (1.4.4-3.el6)
