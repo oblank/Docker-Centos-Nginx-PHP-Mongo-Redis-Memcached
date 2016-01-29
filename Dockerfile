@@ -21,26 +21,28 @@ RUN yum install -y php56w php56w-mbstring php56w-gd php56w-dom php56w-pdo php56w
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Volumes
+VOLUME /var/log
+VOLUME /var/lib/php/session
+VOLUME /data/www/htdocs/
+
+# Adding files
 ADD ./files/conf.d /etc/nginx/conf.d
 ADD ./files/nginx.conf /etc/nginx/nginx.conf
 ADD ./files/php.ini /etc/php.ini
 ADD ./files/php-fpm.conf /etc/php-fpm.conf
 ADD ./files/php-fpm.d /etc/php-fpm.d
 ADD ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
-ADD ./files/supervisord.conf /etc/supervisord.conf
-
-# Adding the default file
+ADD ./files/mongod.conf /etc/mongod.conf
+ADD ./files/redis.conf /etc/redis.conf
+ADD ./files/my.cnf /etc/my.cnf
 ADD ./files/index.php /data/www/htdocs/index.php
-
-# Volumes
-VOLUME /var/log
-VOLUME /var/lib/php/session
-VOLUME /data/www/htdocs/
-
+ADD ./files/supervisord.conf /etc/supervisord.conf
 
 # Install MongoDB
 RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/6/mongodb-org/3.2/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb.repo
 RUN yum install -y mongodb-org
+RUN mkdir -p /var/log/mongodb/
 RUN mkdir -p /data/db
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
@@ -57,7 +59,7 @@ RUN yum -y install mysql-community-server
 # redis (2.8.6)
 #RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2.8.6.tar.gz && cd redis-2.8.6 && make && make install
 RUN yum install -y redis
-RUN sed 's/daemonize no/daemonize yes/' /etc/redis.conf > /etc/redis.conf
+RUN mkdir -p /data/www/htdocs/db/redis/
 
 # Chat Server
 # Install Node.js and npm
@@ -68,6 +70,9 @@ RUN yum install -y nodejs npm
 # Installing supervisor
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 RUN yum --enablerepo=epel install -y supervisor
+
+# China Timezone
+RUN cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Expose Ports
 # Nginx
