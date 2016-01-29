@@ -54,12 +54,13 @@ RUN yum -y install memcached
 # mysql
 RUN rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 RUN yum -y install mysql-community-server
+RUN mkdir -p /htdocs/db/mysql
 
 
 # redis (2.8.6)
 #RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2.8.6.tar.gz && cd redis-2.8.6 && make && make install
 RUN yum install -y redis
-RUN mkdir -p /htdocs/db/redis/
+RUN mkdir -p /htdocs/db/redis
 
 # Chat Server
 # Install Node.js and npm
