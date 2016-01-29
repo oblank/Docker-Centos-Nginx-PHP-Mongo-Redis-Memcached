@@ -24,7 +24,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Volumes
 VOLUME /var/log
 VOLUME /var/lib/php/session
-VOLUME /htdocs
+VOLUME /data
 
 # Adding files
 ADD ./files/conf.d /etc/nginx/conf.d
@@ -36,16 +36,16 @@ ADD ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
 ADD ./files/mongod.conf /etc/mongod.conf
 ADD ./files/redis.conf /etc/redis.conf
 ADD ./files/my.cnf /etc/my.cnf
-ADD ./files/index.php /htdocs/index.php
+ADD ./files/index.php /data/index.php
 ADD ./files/supervisord.conf /etc/supervisord.conf
 
 # fix mkdir not working, see issue: https://github.com/docker/docker/issues/13011
-RUN bash -c 'mkdir -pv /htdocs/db/{mongodb,mysql,redis}'
+RUN bash -c 'mkdir -pv /data/db/{mongodb,mysql,redis}'
 
 # Install MongoDB
 RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/6/mongodb-org/3.2/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb.repo
 RUN yum install -y mongodb-org
-RUN mkdir -p /htdocs/db/mongodb
+RUN mkdir -p /data/db/mongodb
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
 # memcached (1.4.4-3.el6)
@@ -56,13 +56,13 @@ RUN yum -y install memcached
 # mysql
 RUN rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 RUN yum -y install mysql-community-server
-RUN mkdir -p /htdocs/db/mysql
+RUN mkdir -p /data/db/mysql
 
 
 # redis (2.8.6)
 #RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2.8.6.tar.gz && cd redis-2.8.6 && make && make install
 RUN yum install -y redis
-RUN mkdir -p /htdocs/db/redis
+RUN mkdir -p /data/db/redis
 
 # Chat Server
 # Install Node.js and npm
