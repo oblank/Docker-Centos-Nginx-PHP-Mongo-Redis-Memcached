@@ -39,10 +39,12 @@ ADD ./files/my.cnf /etc/my.cnf
 ADD ./files/index.php /htdocs/index.php
 ADD ./files/supervisord.conf /etc/supervisord.conf
 
+# fix mkdir not working, see issue: https://github.com/docker/docker/issues/13011
+RUN bash -c 'mkdir -pv /htdocs/db/{mongodb,mysql,redis}'
+
 # Install MongoDB
 RUN echo -e "[mongodb]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/6/mongodb-org/3.2/`uname -m`/\ngpgcheck=0\nenabled=1" > /etc/yum.repos.d/mongodb.repo
 RUN yum install -y mongodb-org
-RUN mkdir -p /var/log/mongodb
 RUN mkdir -p /htdocs/db/mongodb
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
