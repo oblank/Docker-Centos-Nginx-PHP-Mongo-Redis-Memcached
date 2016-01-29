@@ -82,5 +82,4 @@ EXPOSE 443
 # Promolo
 EXPOSE 3014 4050 3050 4051 3051 6050 6051
 
-# TODO config supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
