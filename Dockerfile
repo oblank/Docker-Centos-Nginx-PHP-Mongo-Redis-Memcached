@@ -24,7 +24,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Volumes
 VOLUME /var/log
 VOLUME /var/lib/php/session
-VOLUME /htdocs/
+VOLUME /htdocs
 
 # Adding files
 ADD ./files/conf.d /etc/nginx/conf.d
