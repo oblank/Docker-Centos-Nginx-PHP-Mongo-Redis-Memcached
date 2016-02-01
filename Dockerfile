@@ -48,7 +48,7 @@ RUN yum install -y mongodb-org
 RUN mkdir -p /data/db/mongodb
 #RUN /etc/init.d/mongod start && /etc/init.d/mongod stop
 
-# memcached (1.4.4-3.el6)
+# memcached
 RUN echo "NETWORKING=yes" >>/etc/sysconfig/network
 RUN yum -y install memcached
 #RUN /etc/init.d/memcached start && /etc/init.d/memcached stop
@@ -59,8 +59,7 @@ RUN yum -y install mysql-community-server
 RUN mkdir -p /data/db/mysql
 
 
-# redis (2.8.6)
-#RUN wget http://download.redis.io/releases/redis-2.8.6.tar.gz && tar xzf redis-2.8.6.tar.gz && cd redis-2.8.6 && make && make install
+# redis
 RUN yum install -y redis
 RUN mkdir -p /data/db/redis
 
