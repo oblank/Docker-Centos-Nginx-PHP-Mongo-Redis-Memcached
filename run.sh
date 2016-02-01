@@ -4,3 +4,27 @@ docker run -d --name test-huaxi -p 8082:80 -p 3014:3014 -p 3050:3050 -p 3051:305
 # docker exec -i -t test-huaxi bash
 
 
+#
+##groups
+#location /groups_encrypt/ {
+#    rewrite ^/groups_encrypt/(.*)$ /tsb-server/app/webroot/$1;
+#    if (-f $request_filename) {
+#        break;
+#    }
+#    if (!-f $request_filename) {
+#        rewrite ^/tsb-server/app/webroot/(.*)$ /tsb-server/app/webroot/index.php?url=$1 last;
+#        break;
+#    }
+#}
+#
+#
+#location ~ .*\.php$ {
+#    fastcgi_pass unix:/var/run/php-fpm.sock;
+#    fastcgi_index  index.php;
+#    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#
+#    include        fastcgi_params;
+#}
+
+
+# mongo.so need install by source : https://github.com/mongodb/mongo-php-driver-legacy
