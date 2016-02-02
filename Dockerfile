@@ -66,9 +66,8 @@ RUN mkdir -p /data/db/redis
 # Chat Server
 # Install Node.js and npm
 #RUN yum install -y nodejs npm
-RUN curl -SLO "https://nodejs.org/dist/v5.5.0/node-v5.5.0-linux-x64.tar.gz" \
-  && tar -xzf "node-v5.5.0-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
-  && rm "node-v5.5.0-linux-x64.tar.gz"
+RUN curl -sL https://rpm.nodesource.com/setup_5.x | bash -
+RUN yum install -y nodejs
 
 # cron php scripts
 
