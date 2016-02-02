@@ -27,7 +27,7 @@ Command:
 
     sudo docker build -t ##NAME_OF_YOUR_DOCKER_IMAGE## .
 
-    ** Note :**
+ ** Note :**
 
     a). This command will be fired where the DockerFile will be placed
     b). ##NAME_OF_YOUR_DOCKER_IMAGE## : Replace it with your image name
