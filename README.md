@@ -5,7 +5,6 @@ Created by [@oBlank](http://twitter.com/oBlank) <br>
 Website : http://www.oBlank.com<br>
 
 Based on [docker-php56-fpm-nginx](https://github.com/CrakLabs/docker-php56-fpm-nginx), [Docker-Centos-Nginx-PHP](https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP) and [ruby と mongodb, mysql, redis, memcached を入れた docker イメージを作ったメモ](http://blog.livedoor.jp/sonots/archives/36644307.html)
-<h2>Dockerfile for creating docker image for Centos-Nginx-PHP (Centos, Nginx, PHP-FPM)</h2>
 
 # Steps for creating image from the Docker
 
