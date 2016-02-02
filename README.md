@@ -1,12 +1,15 @@
+Docker-Centos-Nginx-PHP-Mongo-Redis-Memcached
+---------------------
+
 Created by [@oBlank](http://twitter.com/oBlank) <br>
 Website : http://www.oBlank.com<br>
 
 Based on [docker-php56-fpm-nginx](https://github.com/CrakLabs/docker-php56-fpm-nginx), [Docker-Centos-Nginx-PHP](https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP) and [ruby と mongodb, mysql, redis, memcached を入れた docker イメージを作ったメモ](http://blog.livedoor.jp/sonots/archives/36644307.html)
 <h2>Dockerfile for creating docker image for Centos-Nginx-PHP (Centos, Nginx, PHP-FPM)</h2>
 
-<h4>Steps for creating image from the Docker-Centos-Nginx-PHP:</h4>
+# Steps for creating image from the Docker
 
-<b>Step 1 :</b> Clone the Docker-Centos-Nginx-PHP.git
+<b>Step 1 :</b> Clone by git
 <pre>
 <b>Command: </b>
 git clone https://github.com/oblank/Docker-Centos-Nginx-PHP-Mongo-Redis-Memcached.git
@@ -31,7 +34,7 @@ sudo docker build -t ##NAME_OF_YOUR_DOCKER_IMAGE## .
   c). . : (.) Symbols shows that your Dockerfile is available on the same directory where you are running the command.
 </pre>
 
-<b>Step 4 :</b> Create an Centos, Nginx, PHP-FPM Installed Container from the image
+<b>Step 4 :</b> Create an Centos, Nginx, PHP-FPM, Memcached, Redis, MongoDB, Node.js, Supervisord Installed Container from the image
 <pre>
 <b>Command Syntax: </b>
 sudo docker run --name [container name] -p [port to access (New Port):port exposed(original port)] -i -t [image name]
@@ -45,7 +48,8 @@ sudo docker run --name ##NAME_OF_YOUR_DOCKER_CONTAINER## -d -p 8082:80 ##NAME_OF
 http://127.0.0.1:8082/
 </pre>
 
-<h4>Some other important commands:</h4>
+# Some other important commands
+
 <ul>
 <li><b>docker images :</b> To list all the images of your docker</li>
 <li><b>docker ps :</b> To list all the runing containers</li>
@@ -56,7 +60,8 @@ http://127.0.0.1:8082/
 <li><b>docker ps -a:</b> To get the listing of all the containers.</li>
 </ul>
 
-<h4>Additional Notes:</h4>
+## Additional Notes:
+
 <b>Command for attaching the volume of your hosted machine:</b>
 <pre>
 <b>Command Syntax:</b>
@@ -67,3 +72,5 @@ sudo docker run --name ##NAME_OF_YOUR_DOCKER_CONTAINER## -d -p 8082:80 -v ##HOST
 <b>Command Example:</b>
 sudo docker run --name apache_ins -d -p 8082:80 -v /var/www/kaushal:/var/www kaushal_nginx
 </pre>
+
+<br>Important!</b> <code>docker rm ##CONTAINER_NAME##</code> will delete container without volume, unless you use <code>docker rm -v ##CONTAINER_NAME##</code> instead.

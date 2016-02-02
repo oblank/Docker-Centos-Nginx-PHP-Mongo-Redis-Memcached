@@ -82,7 +82,7 @@ RUN cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 # Nginx
 EXPOSE 80 443 8081
 
-# Promolo
+# Pomelo
 EXPOSE 3014 4050 3050 4051 3051 6050 6051
 
 CMD ["/usr/bin/supervisord", "-n"]
