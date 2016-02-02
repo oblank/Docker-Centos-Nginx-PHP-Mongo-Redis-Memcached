@@ -1,8 +1,8 @@
 Docker-Centos-Nginx-PHP-Mongo-Redis-Memcached
 ---------------------
 
-Created by [@oBlank](http://twitter.com/oBlank) <br>
-Website : http://www.oBlank.com<br>
+Created by [@oBlank](http://twitter.com/oBlank)
+Website : http://www.oBlank.com
 
 Based on [docker-php56-fpm-nginx](https://github.com/CrakLabs/docker-php56-fpm-nginx), [Docker-Centos-Nginx-PHP](https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP) and [ruby と mongodb, mysql, redis, memcached を入れた docker イメージを作ったメモ](http://blog.livedoor.jp/sonots/archives/36644307.html)
 
