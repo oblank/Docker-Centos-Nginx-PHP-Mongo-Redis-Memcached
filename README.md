@@ -71,6 +71,6 @@ Command Syntax:
 
 Command Example:
    
-       sudo docker run --name apache_ins -d -p 8082:80 -v /var/www/kaushal:/var/www kaushal_nginx
+       sudo docker run --name apache_ins -d -p 8082:80 -v /var/www/kaushal:/data kaushal_nginx
 
 **Important!** <code>docker rm ##CONTAINER_NAME##</code> will delete container without volume, unless you use <code>docker rm -v ##CONTAINER_NAME##</code> instead.
