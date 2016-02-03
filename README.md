@@ -7,14 +7,13 @@ Website : http://www.oBlank.com
 Based on [docker-php56-fpm-nginx](https://github.com/CrakLabs/docker-php56-fpm-nginx), [Docker-Centos-Nginx-PHP](https://github.com/kaushalkishorejaiswal/Docker-Centos-Nginx-PHP) and [ruby と mongodb, mysql, redis, memcached を入れた docker イメージを作ったメモ](http://blog.livedoor.jp/sonots/archives/36644307.html)
 
 ## Docker hub
-An automated build docker image for this dockerfile is exist in docker hub.
-[https://hub.docker.com/r/oblank/docker-centos-nginx-php-mongo-redis-memcached/](https://hub.docker.com/r/oblank/docker-centos-nginx-php-mongo-redis-memcached/)
+An automated build docker image for this dockerfile is exist in docker hub. [go to docker hub](https://hub.docker.com/r/oblank/docker-centos-nginx-php-mongo-redis-memcached/)
 
 pull command:
     
     docker pull oblank/docker-centos-nginx-php-mongo-redis-memcached
     
-and then you can go straight <code>Step 4</code>.
+and then you can go straight to <code>Step 4</code>.
 
 ## Steps for creating yourself image from the Docker
 
