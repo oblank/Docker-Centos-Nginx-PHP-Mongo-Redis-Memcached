@@ -34,7 +34,7 @@ Command:
     c). . : (.) Symbols shows that your Dockerfile is available on the same directory where you are running the command.
 
 
-### Step 4 : Create an Centos, Nginx, PHP-FPM, Memcached, Redis, MongoDB, Node.js, Supervisord Installed Container from the image
+### Step 4 : Create container from the image
 
 Command Syntax:
     
