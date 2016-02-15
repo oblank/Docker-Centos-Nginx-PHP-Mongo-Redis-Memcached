@@ -80,7 +80,7 @@ RUN cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # Expose Ports
 # Nginx
-EXPOSE 80 443 8081
+EXPOSE 80 443 8081 8010
 
 # Pomelo
 EXPOSE 3014 4050 3050 4051 3051 6050 6051
