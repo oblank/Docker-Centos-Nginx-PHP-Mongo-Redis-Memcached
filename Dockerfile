@@ -69,7 +69,17 @@ RUN mkdir -p /data/db/redis
 RUN curl -sL https://rpm.nodesource.com/setup_5.x | bash -
 RUN yum install -y nodejs
 
+# Install g++/gcc 4.8.2 in CentOS 6.6
+RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo
+RUN yum install -y devtoolset-2-gcc devtoolset-2-binutils
+RUN yum install -y devtoolset-2-gcc-c++ devtoolset-2-gcc-gfortran
+RUN /opt/rh/devtoolset-2/root/usr/bin/gcc --version
+RUN scl enable devtoolset-2 bash
+RUN source /opt/rh/devtoolset-2/enable
+
 # cron php scripts
+RUN yum install -y vixie-cron
+RUN chkconfig --list crond
 
 # Installing supervisor
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
