@@ -30,3 +30,6 @@ docker run --ulimit core=-1 --privileged -d --name test-huaxi -p 8081:8081 -p 80
 # mongo.so need install by source : https://github.com/mongodb/mongo-php-driver-legacy
 
 #docker run --ulimit core=-1 --privileged -d --name test-tsb -p 9081:8081 -p 9082:80 -p 9083:443 -p 8010:8010 -p 3024:3014 -p 3060:3050 -p 3061:3051 -p 4060:4050 -p 4061:4051 -p 6060:6050 -p 6061:6051 -v /data/www/htdocs/tuishiben:/data daocloud.io/oblank/centos-ngmmmrn:master-5840356
+
+
+docker run --ulimit core=-1 --privileged -d --name test-php7 -p 8071:8081 -p 8070:80 -v /data/www/htdocs/huaxi-php7:/data daocloud.io/oblank/centos-ngmmmrn:master-5840356

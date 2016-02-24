@@ -11,7 +11,7 @@ RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 
 # Installing nginx
-RUN yum -y install nginx perl wget tar
+RUN yum -y install ntpdate nginx perl wget tar
 
 # Installing PHP
 RUN rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
