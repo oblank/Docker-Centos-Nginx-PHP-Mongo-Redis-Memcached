@@ -37,3 +37,6 @@ docker run --ulimit core=-1 --privileged -d --name test-php7 -p 8071:8081 -p 807
 
 # test-xzt
 docker run --ulimit core=-1 --privileged -d --name test-xzt -p 8072:8081 -p 8073:80 -p 8074:8010 -p 3034:3014 -p 3070:3050 -p 3071:3051 -p 4070:4050 -p 4071:4051 -p 6070:6050 -p 6071:6051 -v /data/www/htdocs/xinzt:/data daocloud.io/oblank/centos-ngmmmrn:master-e663b74
+
+# test-bsky
+docker run --ulimit core=-1 --privileged -d --name test-bsky -p 38072:8081 -p 38073:80 -p 38074:8010 -p 33034:3014 -p 33070:3050 -p 33071:3051 -v /data/www/htdocs/bashu-kuaiyi:/data daocloud.io/oblank/centos-ngmmmrn:master-e663b74
