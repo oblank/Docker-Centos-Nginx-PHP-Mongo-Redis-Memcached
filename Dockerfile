@@ -14,10 +14,25 @@ RUN yum -y install epel-release; yum clean all
 RUN yum -y install ntpdate nginx perl wget tar
 
 # Installing PHP
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 RUN rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
-RUN yum update -y
-RUN yum install -y php56w php56w-fpm php56w-mbstring php56w-gd php56w-dom php56w-pdo php56w-mysqlnd php56w-mcrypt php56w-process php56w-pear php56w-cli php56w-xml php56w-curl php56w-pecl-memcached php56w-devel php56w-pecl-redis
+RUN yum install -y php70w libmemcached10
+RUN yum install -y php70w-fpm php70w-mbstring php70w-gd php70w-dom php70w-xml php70w-pdo php70w-mysqlnd php70w-mcrypt php70w-process php70w-pear php70w-cli php70w-devel php70w-opcache
+RUN sed -E -i "s/^error_log\ = \/var\/log\/php-fpm\/error.log/error_log = \/data\/logs\/php\/fpm-error.log/" /etc/php-fpm.conf
+RUN sed -E -i "s/^listen\ =.+?$/listen = 0.0.0.0:9000/" /etc/php-fpm.d/www.conf
+RUN sed -E -i "s/^listen.allowed_clients\ =.+?$/; listen.allowed_clients\ =\ 127\.0\.0\.1/" /etc/php-fpm.d/www.conf
+RUN sed -E -i "s/^slowlog\ = \/var\/log\/php-fpm\/www-slow.log/slowlog\ =\ \/data\/logs\/php\/php-slow.log/" /etc/php-fpm.d/www.conf
+RUN sed -E -i "s/^php_admin_value\[error_log\]\ =.+?$/php_admin_value\[error_log\]\ =\ \/data\/logs\/php\/php-error.log/" /etc/php-fpm.d/www.conf
+RUN { \
+    echo "catch_workers_output = yes"; \
+} >> /etc/php-fpm.d/www.conf
+RUN sed -E -i "s/^post_max_size\ =.+?$/post_max_size\ =\ 100M/" /etc/php.ini
+RUN sed -E -i "s/^upload_max_filesize\ =.+?$/upload_max_filesize\ =\ 100M/" /etc/php.ini
+RUN sed -E -i "s/^display_errors\ .+?$/display_errors\ =\ On/" /etc/php.ini
+RUN sed -E -i "s/^error_reporting\ .+?$/error_reporting\ =\ E_ALL\ \&\ \~E_DEPRECATED\ \&\ \~E_STRICT\ \&\ \~E_NOTICE/" /etc/php.ini
 
+ADD ./files/ext/*.ini /etc/php.d/
+ADD ./files/ext/*.so /usr/lib64/php/modules/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -29,10 +44,6 @@ VOLUME /data
 # Adding files
 ADD ./files/conf.d /etc/nginx/conf.d
 ADD ./files/nginx.conf /etc/nginx/nginx.conf
-ADD ./files/php.ini /etc/php.ini
-ADD ./files/php-fpm.conf /etc/php-fpm.conf
-ADD ./files/php-fpm.d /etc/php-fpm.d
-ADD ./files/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini
 ADD ./files/mongod.conf /etc/mongod.conf
 ADD ./files/redis.conf /etc/redis.conf
 ADD ./files/my.cnf /etc/my.cnf
@@ -80,6 +91,8 @@ RUN source /opt/rh/devtoolset-2/enable
 # cron php scripts
 RUN yum install -y vixie-cron
 RUN chkconfig --list crond
+RUN chkconfig crond on
+RUN sed -E -i "s/session    required   pam_loginuid.so/session    optional   pam_loginuid.so/" /etc/pam.d/crond
 
 # Installing supervisor
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
