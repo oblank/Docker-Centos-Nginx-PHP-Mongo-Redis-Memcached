@@ -40,3 +40,10 @@ docker run --ulimit core=-1 --privileged -d --name test-xzt -p 8072:8081 -p 8073
 
 # test-bsky
 docker run --ulimit core=-1 --privileged -d --name test-bsky -p 38072:8081 -p 38073:80 -p 38074:8010 -p 33034:3014 -p 33070:3050 -p 33071:3051 -v /data/www/htdocs/bashu-kuaiyi:/data daocloud.io/oblank/centos-ngmmmrn:master-e663b74
+
+
+# one-env
+docker run --ulimit core=-1 --privileged -d --name test-one-env  -v /data/www/htdocs/one-env:/data daocloud.io/oblank/daocloud.io/oblank/tsb-one-env:master-de683ef
+
+# test-tzhong
+docker run --ulimit core=-1 --privileged -d --name test-tzhong -p 8068:8081 -p 8069:80 -p 38071:8010 -p 33035:3014 -p 33072:3050 -p 33073:3051 -v /data/www/htdocs/tzhong:/data daocloud.io/oblank/centos-ngmmmrn:master-e663b74
